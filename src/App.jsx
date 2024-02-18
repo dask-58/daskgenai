@@ -3,6 +3,7 @@ import "./App.css";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 function App() {
+  
   const API_KEY = import.meta.env.VITE_apikey;
   const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState("");
@@ -23,6 +24,7 @@ function App() {
     setApiData(text);
     setLoading(false);
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,8 +33,15 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Dask58 GenAI application.</h1>
-      <h5 className="text-align-right">Based on Google Gemini-Pro Model.</h5>
+      <h1>D<span className="text-cyan">as</span>k58 GenAI.</h1>
+      <h5 className="text-align-right">Based on 
+        <span className="blue"> G</span>
+        <span className="red">o</span>
+        <span className="yellow">o</span>
+        <span className="blue">g</span>
+        <span className="green">l</span>
+        <span className="red">e </span>
+       Gemini-Pro Model.</h5>
       <hr></hr>
       <p>The content is Purely AI Generated. The author of this webpage does not hold any responsibility of the response received.</p>
       <div className="mt-5 mb-5">
