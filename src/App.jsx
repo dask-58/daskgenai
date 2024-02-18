@@ -33,6 +33,8 @@ function App() {
     <div className="container">
       <h1>Dask58 GenAI application.</h1>
       <h5 className="text-align-right">Based on Google Gemini-Pro Model.</h5>
+      <hr></hr>
+      <p>The content is Purely AI Generated. The author of this webpage does not hold any responsibility of the response received.</p>
       <div className="mt-5 mb-5">
         <form onSubmit={handleSubmit}>
           <div className="row d-flex align-items-end">
