@@ -44,13 +44,13 @@ function App() {
                 rows="2"
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
-                style={{ width: "100%", minWidth: "100%", maxWidth: "100%" }} // Responsive width
+                style={{ width: "100%", minWidth: "100%", maxWidth: "100%" }} 
               ></textarea>
             </div>
             <div className="col-lg-2">
-              <button type="submit" className="btn btn-primary mt-3 col-lg-12">
-                Submit
-              </button>
+            <button type="submit" className="btn btn-primary mt-3 col-lg-12" disabled={loading}>
+              {loading ? "Loading..." : "Submit"}
+            </button>
             </div>
           </div>
         </form>
