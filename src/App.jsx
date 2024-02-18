@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import "./App.css";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const API_KEY = import.meta.env.VITE_apikey;
+  const [loading, setLoading] = useState(false);
+  const [apiData, setApiData] = useState("");
+  const [promptText, setPromptText] = useState("");
+
+  const genAI = new GoogleGenerativeAI(API_KEY);
+
+  const fetchData = async () => {
+    if(!promptText){
+      alert("Enter the prompt..");
+      return;
+    }
+    setLoading(true);
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const result = await model.generateContent(promptText);
+    const response = await result.response;
+    const text = await response.text();
+    setApiData(text);
+    setLoading(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchData();
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>Dask58 GenAI application.</h1>
+      <h5 className="text-align-right">Based on Google Gemini-Pro Model.</h5>
+      <div className="mt-5 mb-5">
+        <form onSubmit={handleSubmit}>
+          <div className="row d-flex align-items-end">
+            <div className="col-lg-8">
+              <textarea
+                placeholder="Enter your prompt"
+                className="form-control"
+                id="promptText"
+                rows="2"
+                value={promptText}
+                onChange={(e) => setPromptText(e.target.value)}
+                style={{ width: "100%", minWidth: "100%", maxWidth: "100%" }} // Responsive width
+              ></textarea>
+            </div>
+            <div className="col-lg-2">
+              <button type="submit" className="btn btn-primary mt-3 col-lg-12">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="">
+        {!loading && <p className="text-align-left">{apiData}</p>}
+        {loading && <p>Loading...</p>}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <div className="credits">
+        Made with ♥️ by <a href="https://dask-58.github.io">Dhruv Koli.</a>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;

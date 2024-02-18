@@ -5,18 +5,16 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.container {
+  color: white;
+  font-family: monospace;
+  font-weight: 500;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.btn {
+  font-weight: bold;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+
 
 @keyframes logo-spin {
   from {
@@ -37,6 +35,13 @@
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
+.credits a {
+  color: white;
+  font-weight: bolder;
+  transition: all 1s;
+}
+
+
+.credits a:hover {
+  color: lime;
 }
