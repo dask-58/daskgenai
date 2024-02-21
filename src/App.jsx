@@ -72,6 +72,9 @@ function App() {
       </div>
       <div className="credits">
         Made with ♥️ by <a href="https://dask-58.github.io">Dhruv Koli.</a>
+        <hr></hr>
+        <a href="https://www.buymeacoffee.com/dask_58">Click Here</a>
+        <p>To support me.</p>
       </div>
     </div>
   );
