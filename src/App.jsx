@@ -1,35 +1,60 @@
 import React, { useState } from "react";
 import "./App.css";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import MarkdownIt from 'markdown-it';
+import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
 
 function App() {
-  
-  const API_KEY = import.meta.env.VITE_apikey;
   const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState("");
   const [promptText, setPromptText] = useState("");
 
-  const genAI = new GoogleGenerativeAI(API_KEY);
+  const API_KEY = import.meta.env.VITE_apikey;
 
-  const fetchData = async () => {
-    if(!promptText){
-      alert("Enter the prompt..");
-      return;
-    }
-    setLoading(true);
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const result = await model.generateContent(promptText);
-    const response = await result.response;
-    const text = await response.text();
-    setApiData(text);
-    setLoading(false);
-  };
-  
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetchData();
+    setLoading(true);
+
+    try {
+      // Assemble the prompt with text only
+      const contents = [
+        {
+          role: "user",
+          parts: [
+            { text: promptText }
+          ]
+        }
+      ];
+
+      // Instantiate AI with safety settings
+      const genAI = new GoogleGenerativeAI(API_KEY);
+      const model = genAI.getGenerativeModel({
+        model: "gemini-pro",
+        safetySettings: [
+          {
+            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
+          },
+        ],
+      });
+
+      const result = await model.generateContentStream({ contents });
+      const md = new MarkdownIt();
+      let buffer = [];
+      for await (const response of result.stream) {
+        buffer.push(response.text());
+      }
+      const markdownOutput = md.render(buffer.join(""));
+
+      setApiData(markdownOutput);
+    } catch (error) {
+      console.error("Error:", error);
+      setApiData("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const prefillContent = `(Your Results will appear here.)`;
 
   return (
     <div className="container">
@@ -55,24 +80,25 @@ function App() {
                 rows="2"
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
-                style={{ width: "100%", minWidth: "100%", maxWidth: "100%" }} 
+                style={{ width: "100%", minWidth: "100%", maxWidth: "100%" }}
               ></textarea>
             </div>
             <div className="col-lg-2">
-            <button type="submit" className="btn btn-primary mt-3 col-lg-12" disabled={loading}>
-              {loading ? "Loading..." : "Submit"}
-            </button>
+              <button type="submit" className="btn btn-primary mt-3 col-lg-12" disabled={loading}>
+                {loading ? "Loading..." : "Submit"}
+              </button>
             </div>
           </div>
         </form>
       </div>
       <div className="">
-        {!loading && <p className="text-align-left">{apiData}</p>}
+        {!loading && <div className="text-align-left" dangerouslySetInnerHTML={{ __html: apiData || prefillContent }}></div>}
         {loading && <p>Loading...</p>}
       </div>
+      <br></br><br></br><br></br><br></br>
+      <hr></hr>
       <div className="credits">
         Made with ♥️ by <a href="https://dask-58.github.io">Dhruv Koli.</a>
-        <hr></hr>
         <a href="https://www.buymeacoffee.com/dask_58">Click Here</a>
         <p>To support me.</p>
       </div>
