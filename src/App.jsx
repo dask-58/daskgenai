@@ -97,7 +97,7 @@ function App() {
       <br></br><br></br><br></br><br></br>
       <hr></hr>
       <div className="credits">
-        Made with ♥️ by <a href="https://dask-58.github.io">Dhruv Koli.</a>
+        Made with <span className="heart">♥️</span> by <a href="https://dask-58.github.io">Dhruv Koli.</a>
         <br></br>
       </div>
     </div>

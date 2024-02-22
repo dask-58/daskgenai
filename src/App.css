@@ -3,16 +3,26 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  cursor: default;
 }
 
+@font-face {
+  font-family: mija;
+  src: url(./Fonts/mija.ttf);
+}
+@font-face {
+  font-family: sanandreas;
+  src: url(./Fonts/SAN\ ANDREAS.otf);
+}
 
 .container {
   color: black;
-  font-family: monospace;
-  font-weight: 500;
+  font-family: mija;
+  font-size: 3vmin;
 }
 
 .btn {
+  font-family: monospace;
   font-weight: bold;
 }
 
@@ -35,27 +45,26 @@
 .text-cyan{
   font-weight: bold;
   color: rgb(242, 57, 10);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .blue{
   color: rgb(15, 149, 161);
-  font-weight: bold;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bolder;
+  font-family: sans-serif;
 }
 .red{
   color: red;
   font-weight: bold;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: sans-serif;
 }
 .yellow{
   color: orange;
   font-weight: bold;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: sans-serif;
 }
 .green{
   color: rgb(21, 144, 62);
   font-weight: bold;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: sans-serif;
 }
 
 
@@ -71,5 +80,13 @@
 
 
 .credits a:hover {
-  color: crimson;
+  color: rgb(31, 123, 228);
+}
+
+.heart{
+  transition: 1s;
+}
+
+.heart:hover{
+  filter: drop-shadow(0 0 5px red);
 }
