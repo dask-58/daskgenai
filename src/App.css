@@ -8,11 +8,11 @@
 
 @font-face {
   font-family: mija;
-  src: url(./Fonts/mija.ttf);
+  src: url('public/Fonts/mija.ttf');
 }
 @font-face {
   font-family: sanandreas;
-  src: url(./Fonts/SAN\ ANDREAS.otf);
+  src: url('public/Fonts/SANANDREAS.otf');
 }
 
 .container {
