@@ -5,8 +5,9 @@
   text-align: center;
 }
 
+
 .container {
-  color: white;
+  color: black;
   font-family: monospace;
   font-weight: 500;
 }
@@ -32,23 +33,28 @@
 }
 
 .text-cyan{
-  color: cyan;
+  font-weight: bold;
+  color: rgb(242, 57, 10);
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .blue{
   color: rgb(15, 149, 161);
+  font-weight: bold;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .red{
   color: red;
+  font-weight: bold;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .yellow{
-  color: yellow;
+  color: orange;
+  font-weight: bold;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 .green{
   color: rgb(21, 144, 62);
+  font-weight: bold;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
@@ -58,12 +64,12 @@
 }
 
 .credits a {
-  color: white;
+  color: black;
   font-weight: bolder;
   transition: all 1s;
 }
 
 
 .credits a:hover {
-  color: lime;
+  color: crimson;
 }

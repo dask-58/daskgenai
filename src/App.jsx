@@ -13,9 +13,9 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    
 
     try {
-      // Assemble the prompt with text only
       const contents = [
         {
           role: "user",
@@ -25,7 +25,6 @@ function App() {
         }
       ];
 
-      // Instantiate AI with safety settings
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({
         model: "gemini-pro",
@@ -54,11 +53,11 @@ function App() {
     }
   };
 
-  const prefillContent = `(Your Results will appear here.)`;
+  const prefillContent = `(Your Results will appear here...)`;
 
   return (
     <div className="container">
-      <h1>D<span className="text-cyan">as</span>k58 GenAI.</h1>
+      <h1>D<span className="text-cyan">ask</span>58 GenAI.</h1>
       <h5 className="text-align-right">Based on 
         <span className="blue"> G</span>
         <span className="red">o</span>
@@ -77,7 +76,7 @@ function App() {
                 placeholder="Enter your prompt"
                 className="form-control"
                 id="promptText"
-                rows="2"
+                rows="1"
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
                 style={{ width: "100%", minWidth: "100%", maxWidth: "100%" }}
@@ -85,7 +84,7 @@ function App() {
             </div>
             <div className="col-lg-2">
               <button type="submit" className="btn btn-primary mt-3 col-lg-12" disabled={loading}>
-                {loading ? "Loading..." : "Submit"}
+                {"Submit"}
               </button>
             </div>
           </div>
@@ -99,8 +98,7 @@ function App() {
       <hr></hr>
       <div className="credits">
         Made with ♥️ by <a href="https://dask-58.github.io">Dhruv Koli.</a>
-        <a href="https://www.buymeacoffee.com/dask_58">Click Here</a>
-        <p>To support me.</p>
+        <br></br>
       </div>
     </div>
   );
