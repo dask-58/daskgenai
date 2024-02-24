@@ -90,9 +90,9 @@ function App() {
           </div>
         </form>
       </div>
-      <div className="">
+      <div className="result">
         {!loading && <div className="text-align-left" dangerouslySetInnerHTML={{ __html: apiData || prefillContent }}></div>}
-        {loading && <p>Loading...</p>}
+        {loading && <p>Generating...</p>}
       </div>
       <br></br><br></br><br></br><br></br>
       <hr></hr>

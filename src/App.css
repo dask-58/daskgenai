@@ -90,3 +90,10 @@
 .heart:hover{
   filter: drop-shadow(0 0 5px red);
 }
+
+.result{
+  border-radius: 15px;
+  box-shadow: 0px 0.5px 2px 1px gray;
+  color: rgb(74, 85, 103);
+  background-color: rgb(255, 255, 255);
+}
