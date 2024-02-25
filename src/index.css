@@ -15,11 +15,11 @@
 
 @font-face {
   font-family: mija;
-  src: url('public/Fonts/mija.ttf');
+  src: url('Fonts/mija.ttf') format("truetype");
 }
 @font-face {
   font-family: sanandreas;
-  src: url('public/Fonts/SANANDREAS.otf');
+  src: url('Fonts/SANANDREAS.otf') format(("opentype"));
 }
 
 a {
@@ -44,7 +44,7 @@ body {
 h1 {
   color: rgb(54, 65, 83);
   font-size: 10vmin;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: sanandreas;
   line-height: 1.1;
 }
 

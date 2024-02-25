@@ -8,16 +8,16 @@
 
 @font-face {
   font-family: mija;
-  src: url('public/Fonts/mija.ttf');
+  src: url('Fonts/mija.ttf') format("truetype");
 }
 @font-face {
   font-family: sanandreas;
-  src: url('public/Fonts/SANANDREAS.otf');
+  src: url('Fonts/SANANDREAS.otf') format("opentype");
 }
 
 .container {
   color: black;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: mija;
   font-size: 3vmin;
 }
 
@@ -49,22 +49,22 @@
 .blue{
   color: rgb(15, 149, 161);
   font-weight: bolder;
-  font-family: sans-serif;
+  font-family: sanandreas;
 }
 .red{
   color: red;
   font-weight: bold;
-  font-family: sans-serif;
+  font-family: sanandreas;
 }
 .yellow{
   color: orange;
   font-weight: bold;
-  font-family: sans-serif;
+  font-family: sanandreas;
 }
 .green{
   color: rgb(21, 144, 62);
   font-weight: bold;
-  font-family: sans-serif;
+  font-family: sanandreas;
 }
 
 
@@ -77,7 +77,6 @@
   font-weight: bolder;
   transition: all 1s;
 }
-
 
 .credits a:hover {
   color: rgb(31, 123, 228);
@@ -94,6 +93,7 @@
 .result{
   border-radius: 15px;
   box-shadow: 0px 0.5px 2px 1px gray;
+  font-family: mija;
   color: rgb(74, 85, 103);
   background-color: rgb(255, 255, 255);
 }
