@@ -6,8 +6,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  cursor: default;
+  cursor: url('/icons8-homer-simpson-32.png'), default;
 }
+
 
 @font-face {
   font-family: mija;
