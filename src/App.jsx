@@ -105,7 +105,7 @@ export default function App() {
                 <span className="blue">g</span>
                 <span className="green">l</span>
                 <span className="red">e </span>
-                Gemini-Pro Model.
+                Gemini-Pro-Vision Model.
             </h5>
             <hr></hr>
             <p>
