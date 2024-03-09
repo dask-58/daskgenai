@@ -11,14 +11,15 @@ export default function App() {
     const [loading, setLoading] = useState(false);
     const [apiData, setApiData] = useState("");
     const [promptText, setPromptText] = useState("");
+    const [imageFiles, setImageFiles] = useState([]);
 
     const API_KEY = import.meta.env.VITE_apikey;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!promptText.trim()) {
-            alert("Please enter prompt before submitting.");
+        if (!promptText.trim() && imageFiles.length === 0) {
+            alert("Please enter a prompt or select an image before submitting.");
             return;
         }
 
@@ -33,7 +34,7 @@ export default function App() {
 
             const genAI = new GoogleGenerativeAI(API_KEY);
             const model = genAI.getGenerativeModel({
-                model: "gemini-pro",
+                model: imageFiles.length > 0 ? "gemini-pro-vision" : "gemini-pro",
                 safetySettings: [
                     {
                         category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -41,6 +42,13 @@ export default function App() {
                     },
                 ],
             });
+
+            if (imageFiles.length > 0) {
+                const imageParts = await Promise.all(
+                    imageFiles.map(fileToGenerativePart)
+                );
+                contents[0].parts.push(...imageParts);
+            }
 
             const result = await model.generateContentStream({ contents });
             const md = new MarkdownIt();
@@ -59,7 +67,31 @@ export default function App() {
         }
     };
 
+
     const prefillContent = `(Your Results will appear here...)`;
+    const fileToGenerativePart = async (file) => {
+        const base64EncodedDataPromise = new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result.split(",")[1]);
+            reader.readAsDataURL(file);
+        });
+
+        return {
+            inlineData: { data: await base64EncodedDataPromise, mimeType: file.type },
+        };
+    };
+
+    const handleImageUpload = (e) => {
+        setImageFiles(Array.from(e.target.files));
+    };
+
+    const removeFile = (index) => {
+        const newFiles = [...imageFiles];
+        newFiles.splice(index, 1);
+        setImageFiles(newFiles);
+    };
+
+
     return (
         <div className="container">
             <h1>
@@ -97,6 +129,31 @@ export default function App() {
                                     maxWidth: "100%",
                                 }}
                             ></textarea>
+                            <input
+                                type="file"
+                                multiple
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                className="form-control mt-3"
+                            />
+                            <button className="btn btn-primary mt-3">
+                                Upload Images
+                            </button>
+                            {imageFiles.length > 0 && (
+                                <div className="d-flex flex-wrap mt-3">
+                                    {imageFiles.map((file, index) => (
+                                        <div key={index} className="mr-3 mb-3">
+                                            <span>{file.name}</span>
+                                            <button
+                                                className="btn btn-danger btn-sm ml-2"
+                                                onClick={() => removeFile(index)}
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                         <div className="col-lg-3">
                             <button
