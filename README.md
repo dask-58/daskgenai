@@ -17,14 +17,6 @@ To run or view the changes, run.
 ```bash
 npm run dev
 ```
-## Deployment
-
-To deploy this project run
-
-```bash
-  npm run deploy
-```
-
 
 ## Live here
 
