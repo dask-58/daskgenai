@@ -2,6 +2,9 @@
 My personal google gemini-pro-vision API based web chat application, built using React JS + VITE.
 
 
+# Screenshot
+<a href="https://ibb.co/jZSyXxY"><img src="https://i.ibb.co/2YTv4Lr/Screenshot-2024-05-03-at-5-01-44-PM.png" alt="Screenshot-2024-05-03-at-5-01-44-PM" border="0"></a>
+
 ## Installation
 
 You can clone this project and play with it.
@@ -31,10 +34,10 @@ Get the api key [here](https://ai.google.dev/gemini-api/docs/api-key).
 The ```.env``` file should look something like this : 
 
 ```
-VITE_apikey = (YOUR_API_KEY)
+VITE_apikey = YOUR_API_KEY
 ```
-exclude the braces.
 
+PS: Please don't use the existing API_KEY. Create a new one.
 
 ## Authors
 
