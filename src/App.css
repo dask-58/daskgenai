@@ -6,7 +6,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  cursor: url('/icons8-homer-simpson-32.png'), default;
+  cursor: url('/public/iron-man.png'), default;
 }
 
 
@@ -99,6 +99,8 @@
 .result{
   border-radius: 15px;
   box-shadow: 0px 0.5px 2px 1px gray;
+  margin: 5rem;
+  text-align: left;
   font-family: mija;
   font-size: 3.5vmin;
   color: rgb(74, 85, 103);

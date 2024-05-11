@@ -61,14 +61,14 @@ export default function App() {
             setApiData(markdownOutput);
         } catch (error) {
             console.error("Error:", error);
-            setApiData("An error occurred. Please try again later.");
+            setApiData("Sorry. Error occured please try again later.");
         } finally {
             setLoading(false);
         }
     };
 
 
-    const prefillContent = `(Your Results will appear here...)`;
+    const prefillContent = `Results will appear here`;
     const fileToGenerativePart = async (file) => {
         const base64EncodedDataPromise = new Promise((resolve) => {
             const reader = new FileReader();
