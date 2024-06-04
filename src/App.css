@@ -1,108 +1,179 @@
-@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Honk&family=Itim&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Honk&family=Itim&family=Libre+Barcode+128+Text&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-#root {
-  max-width: 1280px;
+/* Import font families */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Light and Dark Mode Colors */
+:root {
+  --primary-color: #5e60ce;
+  --secondary-color: #8c8c8c;
+  --background-color: #f7f7f7;
+  --text-color: #333;
+  --code-background: #f0f0f0;
+  --code-color: #333;
+}
+
+.dark-mode {
+  --background-color: #1b1b1b;
+  --text-color: #e0e0e0;
+  --code-background: #2c2c2c;
+  --code-color: #c9d1d9;
+}
+
+/* General Styles */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dark-mode .container {
+  background-color: #2c2c2c;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Headings */
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.dark-mode h1 {
+  color: #a1a1ff;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.1);
+}
+
+h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.dark-mode h5 {
+  color: #b3b3b3;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border: 1px solid var(--secondary-color);
+  border-radius: 4px;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+input[type="file"] {
+  margin-top: 1rem;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.2rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  background-color: #4c4ccc;
+  transform: translateY(-2px);
+}
+
+/* Result */
+.result {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--code-background);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1.5;
+  color: var(--code-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Credits */
+.credits {
   text-align: center;
-  cursor: url('/public/iron-man.png'), default;
-}
-
-
-@font-face {
-  font-family: mija;
-  src: url('Fonts/mija.ttf') format("truetype");
-}
-@font-face {
-  font-family: sanandreas;
-  src: url('Fonts/SANANDREAS.otf') format("opentype");
-}
-
-.container {
-  color: black;
-  font-family: "Itim";
-  font-size: 3vmin;
-}
-
-.btn {
-  font-family: monospace;
-  font-weight: bold;
-}
-
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.text-cyan{
-  font-weight: bold;
-  color: rgb(242, 57, 10);
-}
-.blue{
-  color: rgb(15, 149, 161);
-  font-weight: bolder;
-  font-family: "Poppins";
-}
-.red{
-  color: red;
-  font-weight: bold;
-  font-family: "Poppins";
-}
-.yellow{
-  color: orange;
-  font-weight: bold;
-  font-family: "Poppins";
-}
-.green{
-  color: rgb(21, 144, 62);
-  font-weight: bold;
-  font-family: "Poppins";
-}
-
-
-.card {
-  padding: 2em;
+  margin-top: 2rem;
+  color: var(--secondary-color);
+  transition: color 0.3s ease;
 }
 
 .credits a {
-  color: black;
-  font-weight: 1000;
-  font-size: 5vmin;
-  font-family: "Libre Barcode 128 Text";
-  transition: all 1s;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .credits a:hover {
-  color: rgb(31, 123, 228);
+  color: #4c4ccc;
 }
 
-.heart{
-  transition: 1s;
+.heart {
+  color: #e74c3c;
+  animation: beat 1s infinite;
 }
 
-.heart:hover{
-  filter: drop-shadow(0 0 5px red);
+@keyframes beat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
-.result{
-  border-radius: 15px;
-  box-shadow: 0px 0.5px 2px 1px gray;
-  margin: 5rem;
-  text-align: left;
-  font-family: mija;
-  font-size: 3.5vmin;
-  color: rgb(74, 85, 103);
-  background-color: rgb(255, 255, 255);
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  textarea {
+    font-size: 0.9rem;
+  }
+
+  .result {
+    padding: 1rem;
+  }
 }
