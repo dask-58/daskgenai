@@ -6,6 +6,8 @@ import '@material/web/checkbox/checkbox.js';
 import React, { useState } from "react";
 import MarkdownIt from "markdown-it";
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
@@ -13,7 +15,24 @@ export default function App() {
   const [promptText, setPromptText] = useState("");
   const [imageFiles, setImageFiles] = useState([]);
 
-  
+  const md = new MarkdownIt({
+    html: true,
+    breaks: true,
+    linkify: true,
+    typographer: true,
+    highlight: (str, lang) => {
+      if (lang === "latex") {
+        try {
+          return katex.renderToString(str, { throwOnError: false });
+        } catch (e) {
+          console.error(e);
+          return str;
+        }
+      }
+      return "";
+    },
+  });
+
 
   const API_KEY = import.meta.env.VITE_apikey;
 
@@ -94,7 +113,7 @@ export default function App() {
     <div className="terminal-container">
       <h1 className="terminal-header">
         E<span className="terminal-header-accent">rudite</span>.
-      </h1>
+      </h1><p>(formerly daskgenai)</p>
       <p className="terminal-subheader">
         Based on{" "}
         <span className="terminal-subheader-accent">G</span>
