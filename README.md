@@ -1,9 +1,10 @@
-# Dask Gen-AI
+# ERUDITE
 My personal google gemini-pro-vision API based web chat application, built using React JS + VITE.
 
 
 # Screenshot
-<a href="https://ibb.co/jZSyXxY"><img src="https://i.ibb.co/2YTv4Lr/Screenshot-2024-05-03-at-5-01-44-PM.png" alt="Screenshot-2024-05-03-at-5-01-44-PM" border="0"></a>
+![image](https://github.com/dask-58/daskgenai/assets/140686560/313c3d74-df17-4264-8a09-8e38cfa3b918)
+
 
 ## Installation
 
