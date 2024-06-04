@@ -1,3 +1,8 @@
+// index.js
+import '@material/web/button/filled-button.js';
+import '@material/web/button/outlined-button.js';
+import '@material/web/checkbox/checkbox.js';
+
 import React, { useState } from "react";
 import MarkdownIt from "markdown-it";
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
@@ -86,95 +91,75 @@ export default function App() {
   };
 
   return (
-    <div className="container mx-auto max-w-5xl py-8 px-4">
-      <h1 className="text-5xl font-bold text-indigo-600 mb-4">
-        D<span className="text-red-500">ask</span>58 GenAI.
+    <div className="terminal-container">
+      <h1 className="terminal-header">
+        E<span className="terminal-header-accent">rudite</span>.
       </h1>
-      <h5 className="text-gray-600 text-right mb-4">
+      <p className="terminal-subheader">
         Based on{" "}
-        <span className="text-blue-500 font-semibold">G</span>
-        <span className="text-red-500 font-semibold">o</span>
-        <span className="text-yellow-500 font-semibold">o</span>
-        <span className="text-blue-500 font-semibold">g</span>
-        <span className="text-green-500 font-semibold">l</span>
-        <span className="text-red-500 font-semibold">e </span>
+        <span className="terminal-subheader-accent">G</span>
+        <span className="terminal-subheader-accent">o</span>
+        <span className="terminal-subheader-accent">o</span>
+        <span className="terminal-subheader-accent">g</span>
+        <span className="terminal-subheader-accent">l</span>
+        <span className="terminal-subheader-accent">e </span>
         Gemini-Pro-Vision Model.
-      </h5>
-      <hr className="mb-4" />
-      <p className="text-gray-700 mb-6">
-        The content is Purely AI Generated. The author of this webpage does not hold any responsibility for the
-        response received.
       </p>
-      <form onSubmit={handleSubmit} className="flex flex-col md:flex-row items-center justify-center">
-        <div className="flex-1 mr-4">
-          <textarea
-            placeholder="Enter your prompt"
-            className="form-control mt-3 w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
-            id="promptText"
-            rows="1"
-            value={promptText}
-            onChange={(e) => setPromptText(e.target.value)}
-          />
+      <p className="terminal-disclaimer">
+        The content is Purely AI Generated. The author of this webpage does not hold any responsibility for the response received.
+      </p>
+      <form onSubmit={handleSubmit} className="terminal-form">
+        <textarea
+          placeholder="Enter your prompt"
+          className="terminal-textarea"
+          rows={4}
+          value={promptText}
+          onChange={(e) => setPromptText(e.target.value)}
+        />
+        <div className="terminal-file-upload">
           <input
-            type="file"
-            multiple
             accept="image/*"
+            multiple
+            type="file"
             onChange={handleImageUpload}
-            className="mt-3 w-full"
+            id="upload-images"
+            className="terminal-file-input"
           />
-          <button
-            className="btn btn-primary mt-3 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-300"
-          >
+          <label htmlFor="upload-images" className="terminal-file-label">
             Upload Images
-          </button>
-          {imageFiles.length > 0 && (
-            <div className="flex flex-wrap mt-3">
-              {imageFiles.map((file, index) => (
-                <div key={index} className="mr-3 mb-3 bg-gray-100 rounded-md p-2 flex items-center">
-                  <span className="mr-2">{file.name}</span>
-                  <button
-                    className="btn btn-danger btn-sm ml-2 px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-300"
-                    onClick={() => removeFile(index)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
+          </label>
         </div>
-        <div>
-          <button
-            type="submit"
-            className="btn btn-primary mt-3 w-full md:w-auto px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-300"
-            disabled={loading}
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-
-      <div className="result mt-8">
-        {!loading && (
-          <div
-            className="text-left bg-gray-100 p-4 rounded-md"
-            dangerouslySetInnerHTML={{
-              __html: apiData || prefillContent,
-            }}
-          />
+        {imageFiles.length > 0 && (
+          <div className="terminal-file-list">
+            {imageFiles.map((file, index) => (
+              <div key={index} className="terminal-file-item">
+                <span className="terminal-file-name">{file.name}</span>
+                <button className="terminal-file-remove" onClick={() => removeFile(index)}>
+                  Remove
+                </button>
+              </div>
+            ))}
+          </div>
         )}
-        {loading && <p className="text-gray-600">Generating...</p>}
+        <button type="submit" className="terminal-submit" disabled={loading}>
+          Submit
+        </button>
+      </form>
+  
+      <div className="terminal-result">
+        {loading ? (
+          <div className="terminal-loading"></div>
+        ) : (
+          <div className="terminal-output" dangerouslySetInnerHTML={{ __html: apiData || prefillContent }} />
+        )}
       </div>
-      <hr className="my-8" />
-      <div className="credits text-center">
-        Made with <span className="text-red-500 animate-pulse">&#10084;</span> by{" "}
-        <a
-          href="https://dask-58.github.io"
-          className="text-indigo-600 hover:text-indigo-800 transition-colors duration-300"
-        >
+  
+      <p className="terminal-credits">
+        Made with <span className="terminal-heart">&#10084;</span> by{" "}
+        <a href="https://dask-58.github.io" className="terminal-link">
           Dhruv Koli.
         </a>
-      </div>
+      </p>
     </div>
   );
 }
