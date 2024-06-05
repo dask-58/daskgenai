@@ -10,7 +10,7 @@ My personal google gemini-pro-vision API based web chat application, built using
 You can clone this project and play with it.
 
 ```bash
-git clone https://github.com/dask-58/daskgenai.git
+git clone https://github.com/dask-58/erudite.git
 ```
 Navigate to the cloned file directory and install the Node Modules/ Dependencies with NPM.
 ```bash
@@ -23,7 +23,7 @@ npm run dev
 
 ## Live here
 
-Pay a visit [here](https://dask-58.github.io/daskgenai/)
+Pay a visit [here](https://dask-58.github.io/erudite/)
 
 ## Environment Variables
 
