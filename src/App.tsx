@@ -1,31 +1,25 @@
-import React, { useState } from "react";
+// index.tsx
+import '@material/web/button/filled-button.js';
+import '@material/web/button/outlined-button.js';
+import '@material/web/checkbox/checkbox.js';
+
+import React, { useState, FormEvent } from "react";
 import MarkdownIt from "markdown-it";
 import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import Header from "./components/Header";
-import Disclaimer from "./components/Disclaimer";
-import PromptInput from "./components/PromptInput";
-import SubmitButton from "./components/SubmitButton";
-import Result from "./components/Result";
-import Credits from "./components/Credits";
 
-interface ImageFile {
-  type: string;
-}
-
-export default function App(): JSX.Element {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [apiData, setApiData] = useState<string>("");
-  const [promptText, setPromptText] = useState<string>("");
-  const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
+export default function App() {
+  const [loading, setLoading] = useState(false);
+  const [apiData, setApiData] = useState("");
+  const [promptText, setPromptText] = useState("");
 
   const md = new MarkdownIt({
     html: true,
     breaks: true,
     linkify: true,
     typographer: true,
-    highlight: (str: string, lang: string) => {
+    highlight: (str, lang) => {
       if (lang === "latex") {
         try {
           return katex.renderToString(str, { throwOnError: false });
@@ -38,13 +32,13 @@ export default function App(): JSX.Element {
     },
   });
 
-  const API_KEY: string = import.meta.env.VITE_apikey;
+  const API_KEY = import.meta.env.VITE_apikey as string;
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!promptText.trim() && imageFiles.length === 0) {
-      alert("Please enter a prompt or select an image before submitting.");
+    if (!promptText.trim()) {
+      alert("Please enter a prompt before submitting.");
       return;
     }
 
@@ -59,7 +53,7 @@ export default function App(): JSX.Element {
 
       const genAI = new GoogleGenerativeAI(API_KEY);
       const model = genAI.getGenerativeModel({
-        model: imageFiles.length > 0 ? "gemini-pro-vision" : "gemini-pro",
+        model: "gemini-pro",
         safetySettings: [
           {
             category: HarmCategory.HARM_CATEGORY_HARASSMENT,
@@ -68,14 +62,8 @@ export default function App(): JSX.Element {
         ],
       });
 
-      if (imageFiles.length > 0) {
-        const imageParts = await Promise.all(imageFiles.map(fileToGenerativePart));
-        contents[0].parts.push(...imageParts);
-      }
-
       const result = await model.generateContentStream({ contents });
-      const md = new MarkdownIt();
-      let buffer: string[] = [];
+      const buffer: string[] = [];
       for await (const response of result.stream) {
         buffer.push(response.text());
       }
@@ -90,42 +78,53 @@ export default function App(): JSX.Element {
     }
   };
 
-  const prefillContent: string = `Results will appear here`;
-  const fileToGenerativePart = async (file: ImageFile): Promise<{ inlineData: { data: string; mimeType: string } }> => {
-    const base64EncodedDataPromise = new Promise<string>((resolve) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result.split(",")[1]);
-      reader.readAsDataURL(file);
-    });
-
-    return {
-      inlineData: { data: await base64EncodedDataPromise, mimeType: file.type },
-    };
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setImageFiles(Array.from(e.target.files));
-  };
-
-  const removeFile = (index: number): void => {
-    const newFiles = [...imageFiles];
-    newFiles.splice(index, 1);
-    setImageFiles(newFiles);
-  };
+  const prefillContent = `Results will appear here`;
 
   return (
     <div className="terminal-container">
-      <Header />
-      <Disclaimer />
-      <PromptInput
-        promptText={promptText}
-        setPromptText={setPromptText}
-        imageFiles={imageFiles}
-        setImageFiles={setImageFiles}
-      />
-      <SubmitButton loading={loading} handleSubmit={handleSubmit} />
-      <Result loading={loading} apiData={apiData} />
-      <Credits />
+      <h1 className="terminal-header">
+        E<span className="terminal-header-accent">rudite</span>.
+      </h1><p>(formerly daskgenai)</p>
+      <p className="terminal-subheader">
+        Based on{" "}
+        <span className="terminal-subheader-accent">G</span>
+        <span className="terminal-subheader-accent">o</span>
+        <span className="terminal-subheader-accent">o</span>
+        <span className="terminal-subheader-accent">g</span>
+        <span className="terminal-subheader-accent">l</span>
+        <span className="terminal-subheader-accent">e </span>
+        Gemini-Pro Model.
+      </p>
+      <p className="terminal-disclaimer">
+        The content is Purely AI Generated. The author of this webpage does not hold any responsibility for the response received.
+      </p>
+      <form onSubmit={handleSubmit} className="terminal-form">
+        <textarea
+          placeholder="Enter your prompt"
+          className="terminal-textarea"
+          rows={4}
+          value={promptText}
+          onChange={(e) => setPromptText(e.target.value)}
+        />
+        <button type="submit" className="terminal-submit" disabled={loading}>
+          Submit
+        </button>
+      </form>
+  
+      <div className="terminal-result">
+        {loading ? (
+          <div className="terminal-loading"></div>
+        ) : (
+          <div className="terminal-output" dangerouslySetInnerHTML={{ __html: apiData || prefillContent }} />
+        )}
+      </div>
+  
+      <p className="terminal-credits">
+        Made with <span className="terminal-heart">&#10084;</span> by{" "}
+        <a href="https://dask-58.github.io" className="terminal-link">
+          Dhruv Koli.
+        </a>
+      </p>
     </div>
   );
 }
